@@ -15,6 +15,15 @@ class Api::V1::ProductsController < ApplicationController
   	end
   end
 
+  def update
+     product = Product.new(product_params)
+    if product.update
+      render json: product, status: :ok
+    else
+      render json: {errors: product.errors}, status: 422
+    end
+  end
+
  private 
   def product_params
   	params.require(:product).permit(:name, :price)  	
